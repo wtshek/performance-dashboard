@@ -2,59 +2,59 @@
 
 import React, { useEffect } from "react";
 
-import { PerformanceChart } from "@/components/PerformanceChart";
-import { CreateTestForm } from "@/components/CreateTestForm";
-const numberOfFiles = 10;
+// import { PerformanceChart } from "@/components/PerformanceChart";
+// import { CreateTestForm } from "@/components/CreateTestForm";
+// const numberOfFiles = 10;
 
-const getReportFilePath = (fileName: string, number: number) => {
-  const reportsPath = `/reports`;
-  return `${reportsPath}/${fileName}${number + 1}.json`;
-};
+// const getReportFilePath = (fileName: string, number: number) => {
+//   const reportsPath = `/reports`;
+//   return `${reportsPath}/${fileName}${number + 1}.json`;
+// };
 
-const getFilePaths = (fileName: string, numberOfFiles: number) => {
-  const arr = [];
-  for (let i = 0; i < numberOfFiles; i++) {
-    arr.push(getReportFilePath(fileName, i));
-  }
+// const getFilePaths = (fileName: string, numberOfFiles: number) => {
+//   const arr = [];
+//   for (let i = 0; i < numberOfFiles; i++) {
+//     arr.push(getReportFilePath(fileName, i));
+//   }
 
-  return arr;
-};
+//   return arr;
+// };
 
-function calculateAverages(data) {
-  const totals = data.reduce(
-    (
-      sum: {
-        lcp: number;
-        cls: number;
-        tbt: number;
-      },
-      entry: {
-        lcp: {
-          numericValue: number;
-        };
-        tbt: {
-          numericValue: number;
-        };
-        cls: {
-          numericValue: number;
-        };
-      }
-    ) => {
-      sum.lcp += entry.lcp.numericValue;
-      sum.tbt += entry.tbt.numericValue;
-      sum.cls += entry.cls.numericValue;
-      return sum;
-    },
-    { lcp: 0, tbt: 0, cls: 0 }
-  );
+// function calculateAverages(data) {
+//   const totals = data.reduce(
+//     (
+//       sum: {
+//         lcp: number;
+//         cls: number;
+//         tbt: number;
+//       },
+//       entry: {
+//         lcp: {
+//           numericValue: number;
+//         };
+//         tbt: {
+//           numericValue: number;
+//         };
+//         cls: {
+//           numericValue: number;
+//         };
+//       }
+//     ) => {
+//       sum.lcp += entry.lcp.numericValue;
+//       sum.tbt += entry.tbt.numericValue;
+//       sum.cls += entry.cls.numericValue;
+//       return sum;
+//     },
+//     { lcp: 0, tbt: 0, cls: 0 }
+//   );
 
-  const count = data.length;
-  return {
-    averageLCP: (totals.lcp / count).toFixed(2),
-    averageTBT: (totals.tbt / count).toFixed(2),
-    averageCLS: (totals.cls / count).toFixed(2),
-  };
-}
+//   const count = data.length;
+//   return {
+//     averageLCP: (totals.lcp / count).toFixed(2),
+//     averageTBT: (totals.tbt / count).toFixed(2),
+//     averageCLS: (totals.cls / count).toFixed(2),
+//   };
+// }
 
 export const Dashboard = () => {
   //   const baselineFiles = getFilePaths("withResize", numberOfFiles);
@@ -66,11 +66,11 @@ export const Dashboard = () => {
   //   const normalTemplateData = await Promise.all(normalTemplatePromises);
   //   const normalAverages = calculateAverages(normalTemplateData);
 
-  const onTestComplete = (isFinished: boolean, testName?: string) => {
-    if (isFinished) return;
+  //   const onTestComplete = (isFinished: boolean, testName?: string) => {
+  //     if (isFinished) return;
 
-    // TODO: handle error
-  };
+  //     // TODO: handle error
+  //   };
 
   useEffect(() => {}, []);
 

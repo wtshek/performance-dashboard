@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     return new Promise((resolve) => {
       exec(
         `${process.cwd()}/scripts/lighthouse_script.sh "${url}" "${testName}"`,
-        (error, stdout, stderr) => {
+        (error, stdout) => {
           if (error) {
             console.error(`Error: ${error}`);
             resolve(
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       );
     });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "Failed to run script" },
       { status: 500 }

@@ -5,7 +5,7 @@ import { MultiSelect } from "@/components/MultiSelect";
 import { useState } from "react";
 
 export default function PerformanceDashboardPage() {
-  const [options, setOptions] = useState([]);
+  const [options] = useState([]);
   const onSelectChange = () => {};
 
   return (
