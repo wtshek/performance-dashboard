@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Test, TestResultKey } from "@/lib/type";
 import {
   ScatterChart,
   CartesianGrid,
@@ -11,42 +11,12 @@ import {
   Scatter,
 } from "recharts";
 
-type PerformanceData = {
-  fetchTime: string;
-  lcp: { score: number; numericValue: number };
-  tbt: { score: number; numericValue: number };
-  cls: { score: number; numericValue: number };
-};
-
 type PerformanceChartProps = {
-  data: PerformanceData[][];
-  name: string;
-  dotColor?: string;
+  data?: Test[];
+  dataKey: TestResultKey;
 };
 
-export function PerformanceChart({
-  data,
-  name,
-  dotColor,
-}: PerformanceChartProps) {
-  const [isClient, setIsClient] = useState(false);
-  const chartData1 = data[0].map((item) => ({
-    x: new Date(item.fetchTime).getTime(),
-    lcp: item.lcp.numericValue,
-    tbt: item.tbt.numericValue,
-    cls: item.cls.numericValue * 1000,
-  }));
-  const chartData2 = data[1].map((item) => ({
-    x: new Date(item.fetchTime).getTime(),
-    lcp: item.lcp.numericValue,
-    tbt: item.tbt.numericValue,
-    cls: item.cls.numericValue * 1000,
-  }));
-
-  useEffect(() => setIsClient(true), []);
-
-  if (!isClient) return;
-
+export function PerformanceChart({ data, dataKey }: PerformanceChartProps) {
   return (
     <div className="flex flex-col justify-center items-center gap-8">
       <ScatterChart
@@ -74,18 +44,18 @@ export function PerformanceChart({
           labelFormatter={(label) => new Date(label).toLocaleString()}
         />
         <Legend />
-        <Scatter
-          name={"withResize"}
-          data={chartData1}
-          fill={dotColor || "#8884d8"}
-          dataKey={name}
-        />
-        <Scatter
-          name={"withoutResize"}
-          data={chartData2}
-          fill={"#8884d8"}
-          dataKey={name}
-        />
+        {data?.map((item) => (
+          <Scatter
+            name={item.id as string}
+            data={item.testResult.map((point) => ({
+              x: new Date(point.fetchTime).getTime(),
+              [dataKey]: point[dataKey].numericValue,
+            }))}
+            fill={item.chartColor}
+            key={item.id}
+            dataKey={dataKey}
+          />
+        ))}
       </ScatterChart>
     </div>
   );
